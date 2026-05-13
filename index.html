@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Estudio Innovar - Arquitectura & Construcción</title>
+
+<!-- Favicon y miniatura para redes sociales -->
+<link rel="icon" href="./images/logo.png" type="image/png">
+<meta property="og:title" content="Estudio Innovar - Arquitectura & Construcción">
+<meta property="og:description" content="Diseño, construcción e innovación espacial en La Rioja.">
+<meta property="og:image" content="./images/logo.png">
+<meta property="og:type" content="website">
+
+<link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+/* --- Estilos Base --- */
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;color:#222;overflow-x:hidden}
+
+/* --- Animaciones de Entrada --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* --- Header & Nav --- */
+header{position:fixed;top:0;width:100%;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);z-index:100;padding:20px 50px;display:flex;justify-content:space-between;align-items:center}
+.logo-img{width:70px;height:70px;border-radius:50%;object-fit:cover}
+nav a{text-decoration:none;color:#222;margin:0 15px;text-transform:uppercase;font-size:.9rem}
+
+/* --- Sections & Hero --- */
+section{padding:100px 40px}
+.hero{height:100vh;background:url('./images/1.jpg') center/cover;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;position:relative; overflow:hidden;}
+
+/* Iluminación localizada detrás del título */
+.hero h1{font-family:Playfair Display;font-size:4rem;position:relative;z-index:1;color:#fff;margin-bottom:10px;text-shadow:0 2px 10px rgba(0,0,0,0.3)}
+.hero h1::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(15px);
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  z-index: 1;
+}
+
+.hero .logo-img{width:110px;height:110px;margin-bottom:20px; z-index: 1;}
+
+/* --- Sobre Nosotros --- */
+.about{display:flex;gap:50px;align-items:center;max-width:1300px;margin:auto}
+.about img{width:45%;border-radius:20px;object-fit:cover}
+.about-text{flex:1}
+
+/* --- Proyectos & Slider Modificado --- */
+.slider-wrap{position:relative;width:100%;max-width:1100px;margin:auto;overflow:hidden;border-radius:20px;box-shadow:0 15px 45px rgba(0,0,0,.15)}
+.slider{display:flex;transition:1s}
+.slide{min-width:100%;position:relative}
+.slide img{width:100%;height:650px;object-fit:contain;cursor:pointer;background-color:#1a1a1a;}
+.caption{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.9);padding:15px 25px;border-radius:30px;text-decoration:none;color:#111;z-index: 2;}
+
+/* Controles del Slider */
+.slider-controls{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 20px;z-index: 3;}
+.slider-controls button{background:rgba(255,255,255,.7);backdrop-filter:blur(5px);border:none;border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#333;font-size:2rem;box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:.3s;}
+.slider-controls button:hover{background:rgba(255,255,255,.9);transform:scale(1.1);}
+
+/* --- Servicios --- */
+.services{background:#24304d;color:#fff}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;margin-top:40px}
+.card{padding:40px;border:1px solid rgba(255,255,255,.2);border-radius:25px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);box-shadow:0 10px 35px rgba(255,255,255,.08);transition:.3s;}
+.card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(255,255,255,.15);}
+.card h3{margin:20px 0}
+
+/* --- Contacto Rediseñado --- */
+#contacto {
+  background-color: #f7f9fc;
+  padding: 100px 20px;
+}
+.contact-box{display:flex;gap:70px;align-items:center;max-width:1200px;margin:auto}
+.contact-info {flex: 1;}
+.contact-map {flex: 1; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,.1);}
+
+.info div{display: flex; align-items: center; gap: 15px; margin: 25px 0;font-size:1.1rem; color: #444;}
+
+/* Iconos vectoriales redondos */
+.info .icon-box {
+  background: #24304d;
+  color: #fff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: .3s;
+}
+.info div:hover .icon-box { transform: scale(1.1); }
+
+/* --- Botones Flotantes Redes Sociales --- */
+.floating-social {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 900;
+}
+.floating-social img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.floating-social img:hover {
+  transform: scale(1.1);
+}
+
+/* --- Lightbox & Footer --- */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);justify-content:center;align-items:center;z-index:999}.lightbox img{max-width:95%;max-height:95%}
+footer{text-align:center;padding:25px;background:#111;color:#fff}
+
+/* --- Media Queries --- */
+@media(max-width:992px){.about,.contact-box{flex-direction:column-reverse; text-align: center;}}
+@media(max-width:768px){header{padding:15px;flex-direction:column; gap:10px;}.hero h1{font-size:2.6rem}.about img,.contact-map{width:100%}.info div{justify-content: center;}}
+</style>
+</head>
+<body>
+<header><img src='./images/logo.jpg' class='logo-img'><nav><a href='#inicio'>Inicio</a><a href='#nosotros'>Nosotros</a><a href='#proyectos'>Proyectos</a><a href='#contacto'>Contacto</a></nav></header>
+
+<section class='hero' id='inicio'>
+  <img src='./images/logo.jpg' class='logo-img'>
+  <h1 class='reveal'>Estudio Innovar</h1>
+  <p class='reveal'>Arquitectura & Construcción</p>
+</section>
+
+<section id='nosotros'><div class='about'><img src='./images/sn.jpg' class='reveal'><div class='about-text'><h2 class='reveal'>Sobre Nosotros</h2><p class='reveal'>En Estudio Innovar somos un equipo de arquitectura con base en la ciudad de La Rioja, comprometido con la excelencia en el diseño, la construcción y la innovación espacial. Nuestra misión es crear proyectos con identidad, funcionales y contemporáneos, respondiendo a las necesidades reales de las personas y al contexto en el que vivimos. Combinamos experiencia técnica con una visión estética actual, ofreciendo soluciones creativas y eficientes tanto en el ámbito residencial como comercial. Cada obra que desarrollamos es el resultado de una mirada integradora entre el diseño, la tecnología y el entorno. Valoramos el detalle, la calidad constructiva y la búsqueda constante de nuevas formas de habitar. Trabajamos el rubro inmobiliario, diseño y construcción.</p></div></div></section>
+
+<!-- NUEVA SECCIÓN: LÍNEAS -->
+<section id='lineas'><h2 style='text-align:center; margin-bottom: 40px;' class='reveal'>Líneas</h2>
+  <div class='slider-wrap reveal'>
+    <div class='slider'>
+      <div class='slide'><img src='./images/linea1.jpg'><a href='index.html' class='caption'>Modo Minimal</a></div>
+      <div class='slide'><img src='./images/linea2.jpg'><a href='index.html' class='caption'>Modern Edge</a></div>
+      <div class='slide'><img src='./images/linea3.jpg'><a href='index.html' class='caption'>Campo Brisa</a></div>
+      <div class='slide'><img src='./images/linea4.jpg'><a href='index.html' class='caption'>Conciencia</a></div>
+      <div class='slide'><img src='./images/linea5.jpg'><a href='index.html' class='caption'>Cuotas</a></div>
+    </div>
+    <div class="slider-controls">
+      <button class="btn-prev"><span class="material-icons">chevron_left</span></button>
+      <button class="btn-next"><span class="material-icons">chevron_right</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- NUEVA SECCIÓN: ESTILOS -->
+<section id='estilos'><h2 style='text-align:center; margin-bottom: 40px;' class='reveal'>Estilos</h2>
+  <div class='slider-wrap reveal'>
+    <div class='slider'>
+      <div class='slide'><img src='./images/es7.jpg'><a href='index.html' class='caption'>Innovar</a></div>
+      <div class='slide'><img src='./images/es1.jpg'><a href='index.html' class='caption'>Diseño</a></div>
+      <div class='slide'><img src='./images/es2.jpg'><a href='index.html' class='caption'>Espacio</a></div>
+      <div class='slide'><img src='./images/es3.jpg'><a href='index.html' class='caption'>Iluminación</a></div>
+      <div class='slide'><img src='./images/es4.jpg'><a href='index.html' class='caption'>Detalles</a></div>
+      <div class='slide'><img src='./images/es5.jpg'><a href='index.html' class='caption'>Arte</a></div>
+      <div class='slide'><img src='./images/es6.jpg'><a href='index.html' class='caption'>Texturas</a></div>
+      <div class='slide'><img src='./images/es8.jpg'><a href='index.html' class='caption'>Precisión</a></div>
+    </div>
+    <div class="slider-controls">
+      <button class="btn-prev"><span class="material-icons">chevron_left</span></button>
+      <button class="btn-next"><span class="material-icons">chevron_right</span></button>
+    </div>
+  </div>
+</section>
+
+<section id='proyectos'><h2 style='text-align:center; margin-bottom: 40px;' class='reveal'>Proyectos</h2>
+  <div class='slider-wrap reveal'>
+    <div class='slider'>
+      <div class='slide'><img src='./images/2.jpg'><a href='descripcion2.html' class='caption'>descripcion2</a></div>
+      <div class='slide'><img src='./images/3.jpg'><a href='descripcion3.html' class='caption'>descripcion3</a></div>
+      <div class='slide'><img src='./images/4.jpg'><a href='descripcion4.html' class='caption'>descripcion4</a></div>
+      <div class='slide'><img src='./images/5.jpg'><a href='descripcion5.html' class='caption'>descripcion5</a></div>
+    </div>
+    <div class="slider-controls">
+      <button class="btn-prev"><span class="material-icons">chevron_left</span></button>
+      <button class="btn-next"><span class="material-icons">chevron_right</span></button>
+    </div>
+  </div>
+</section>
+
+<section class='services'><h2 style='text-align:center' class='reveal'>Nuestros Servicios</h2><div class='cards'>
+  <div class='card reveal'><h3 class="reveal">Diseño Arquitectónico</h3><p class="reveal">Creamos proyectos arquitectónicos a medida, combinando estética, funcionalidad y contexto. Nos enfocamos en dar respuesta a las necesidades del cliente, respetando el entorno y potenciando cada espacio.</p></div>
+  <div class='card reveal'><h3>Obra Nueva</h3><p>Desarrollamos proyectos completos de viviendas, locales comerciales, oficinas y edificios. Acompañamos cada etapa, desde el relevamiento hasta la entrega final, asegurando calidad técnica y eficiencia.</p></div>
+  <div class='card reveal'><h3>Reformas y Remodelaciones</h3><p>Renovamos y optimizamos espacios existentes, revalorizando su uso y estética. Ya sea una vivienda antigua, un local comercial o una oficina, brindamos soluciones funcionales y modernas adaptadas a cada caso.</p></div>
+  <div class='card reveal'><h3>Dirección de Obra</h3><p>Supervisamos la correcta ejecución de la obra, garantizando que el proyecto se construya tal como fue diseñado. Controlamos tiempos, materiales, equipos y calidad, trabajando de manera coordinada.</p></div>
+</div></section>
+
+<section id='contacto'>
+  <div class='contact-box'>
+    <div class="contact-info reveal">
+      <img src='./images/logo.jpg' class='logo-img' style="margin-bottom: 30px;">
+      <h2 style="margin-bottom: 20px;">Contactanos</h2>
+      <p style="color: #666; margin-bottom: 30px;">Estamos listos para transformar tus ideas en proyectos reales.</p>
+      <div class='info'>
+        <div>
+          <div class="icon-box"><span class="material-icons">location_on</span></div>
+          <span>Santa Cruz 619, Barrio San Martin,<br>La Rioja Capital</span>
+        </div>
+        <div>
+          <div class="icon-box"><span class="material-icons">call</span></div>
+          <span>+5493804679048</span>
+        </div>
+        <div>
+          <div class="icon-box"><span class="material-icons">mail_outline</span></div>
+          <span>Mlc_19_20@hotmail.com<br>Canabarro75@gmail.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-map reveal">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13753.81831412586!2d-66.86178304246838!3d-29.412437632607833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9427db913f04495f%3A0xc3458d928229b4e3!2sSanta%20Cruz%20619%2C%20La%20Rioja%2C%20La%20Rioja%20Province!5e0!3m2!1sen!2sar!4v1701389814467!5m2!1sen!2sar" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Estudio Innovar</footer>
+
+<!-- Botones Flotantes -->
+<div class="floating-social">
+  <a href="https://wa.me/5493804679048" target="_blank"><img src="./images/wp.png" alt="WhatsApp"></a>
+  <a href="https://www.facebook.com/estudioinnovar" target="_blank"><img src="./images/fb.png" alt="Facebook"></a>
+  <a href="https://www.instagram.com/estudio_innovar/" target="_blank"><img src="./images/ins.png" alt="Instagram"></a>
+</div>
+
+<div class='lightbox' id='lightbox'><img id='lightbox-img'></div>
+
+<script>
+/* --- Slider Lógica (Modularizada para soportar múltiples sliders) --- */
+document.querySelectorAll('.slider-wrap').forEach(wrap => {
+  let index = 0;
+  const slider = wrap.querySelector('.slider');
+  const slides = wrap.querySelectorAll('.slide');
+  const btnPrev = wrap.querySelector('.btn-prev');
+  const btnNext = wrap.querySelector('.btn-next');
+  let slideInterval;
+
+  function updateSlider() {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+  }
+  function nextSlide() {
+    index = (index + 1) % slides.length;
+    updateSlider();
+    resetInterval();
+  }
+  function prevSlide() {
+    index = (index - 1 + slides.length) % slides.length;
+    updateSlider();
+    resetInterval();
+  }
+  function startInterval() {
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+  function resetInterval() {
+    clearInterval(slideInterval);
+    startInterval();
+  }
+
+  // Event Listeners para los botones
+  btnPrev.addEventListener('click', prevSlide);
+  btnNext.addEventListener('click', nextSlide);
+  
+  startInterval(); // Iniciar autodeslizamiento independiente para cada uno
+});
+
+/* --- Lightbox (Existente) --- */
+document.querySelectorAll('.slide img').forEach(img=>img.onclick=()=>{
+  lightbox.style.display='flex';
+  document.getElementById('lightbox-img').src=img.src;
+});
+lightbox.onclick=()=>lightbox.style.display='none';
+
+/* --- Animaciones de Entrada (Sorpresa al hacer scroll) --- */
+const reveals = document.querySelectorAll('.reveal');
+function revealOnScroll() {
+  for (let i = 0; i < reveals.length; i++) {
+    const windowHeight = window.innerHeight;
+    const elementTop = reveals[i].getBoundingClientRect().top;
+    const elementVisible = 100; 
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add('active');
+    } else {
+      reveals[i].classList.remove('active'); 
+    }
+  }
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+</script>
+</body>
+</html>
